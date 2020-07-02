@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dex-k8s-app
+spec:
+  selector:
+    matchLabels:
+      app: dex-k8s-app
+  template:
+    metadata:
+      name: dex-k8s-app
+      labels:
+        app: dex-k8s-app
+    spec:
+      containers:
+      - name: dex-k8s-app
+        image: cloudsecu/dex-auth:example-app
+        command: ["./example-app", "--issuer", "https://dex.cloud-sec.cc",
+                  "--listen", "http://0.0.0.0:5555", "--issuer-root-ca", "/etc/secret/ca.pem",
+                  "--redirect-uri", "http://login.cloud-sec.cc/callback"]
+        ports:
+        - containerPort: 5555
+          name: dex-app
+        volumeMounts:
+        - name: secret-volume
+          mountPath: /etc/secret
+      volumes:
+      - name: secret-volume
+        secret:
+          secretName: dex-k8s-app
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dex-k8s-app-svc
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: login.cloud-sec.cc
+spec:
+  type: LoadBalancer
+  ports:
+  - name: dex-app
+    port: 80
+    targetPort: dex-app
+  selector:
+    app: dex-k8s-app
