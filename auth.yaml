@@ -15,7 +15,7 @@ metadata:
   namespace: default
 subjects:
 - kind: User
-  name: djpark@mz.co.kr
+  name: user@domain.com
   namespace: default
 roleRef:
   kind: Role
