@@ -1,5 +1,5 @@
-export KOPS_STATE_STORE="s3://clusters.cloudsec.kr"
-export CLUSTER_NAME="cloudsec.kr"
+export KOPS_STATE_STORE="s3://clusters.domain.com"
+export CLUSTER_NAME="domain.com"
 ssh-keygen -t rsa -f ../ssh_key/k8s.key -N ''
 export PUBKEY="../ssh_key/k8s.key.pub"
 export NODE_SIZE="t2.medium"
