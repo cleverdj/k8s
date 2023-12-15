@@ -14,10 +14,10 @@ spec:
     spec:
       containers:
       - name: dex-k8s-app
-        image: cloudsecu/dex-auth:example-app
-        command: ["./example-app", "--issuer", "https://dex.cloudsec.kr",
+        image: domain/dex-auth:example-app
+        command: ["./example-app", "--issuer", "https://dex.domain.com",
                   "--listen", "http://0.0.0.0:5555", "--issuer-root-ca", "/etc/secret/ca.pem",
-                  "--redirect-uri", "http://login.cloudsec.kr/callback"]
+                  "--redirect-uri", "http://login.domain.com/callback"]
         ports:
         - containerPort: 5555
           name: dex-app
@@ -34,7 +34,7 @@ kind: Service
 metadata:
   name: dex-k8s-app-svc
   annotations:
-    external-dns.alpha.kubernetes.io/hostname: login.cloudsec.kr
+    external-dns.alpha.kubernetes.io/hostname: login.domain.com
 spec:
   type: LoadBalancer
   ports:
