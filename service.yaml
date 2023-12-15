@@ -3,6 +3,6 @@ kind: Service
 metadata:
   name: nginx
   annotations:
-    external-dns.alpha.kubernetes.io/hostname: nginx.cloud-sec.cc
+    external-dns.alpha.kubernetes.io/hostname: nginx.domain.com
 spec:
   type: LoadBalancer
